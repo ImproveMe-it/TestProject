@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TestProject.MainPage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="GoToPage1" Clicked="Button_Clicked1"></Button>
+                <Button Text="GoToPage2" Clicked="Button_Clicked2"></Button>
+                <Button Text="GoToPage3" Clicked="Button_Clicked3"></Button>
+            </StackLayout>
+            <CarouselView Margin="50" ItemsSource="{Binding Models}" BackgroundColor="LightGreen" HeightRequest="300" x:Name="MyCarouselView" PositionChanged="MyCarouselView_PositionChanged">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollView>
+                            <StackLayout>
+                                <ContentView Content="{Binding CurrentContent}" />
+                            </StackLayout>
+                        </ScrollView>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
