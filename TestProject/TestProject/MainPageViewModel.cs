@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace TestProject
@@ -13,6 +14,10 @@ namespace TestProject
         public event PropertyChangedEventHandler PropertyChanged;
 
         public INavigation Navigation;
+
+        public Command NavigateTo { get; set; }
+
+        public CarouselView MyCarouselViewVM {get;set;}
 
         //private ObservableCollection<TestModel> _models;
         //private ObservableCollection<TestModel> models { get; set; } = new ObservableCollection<TestModel>();
@@ -41,24 +46,27 @@ namespace TestProject
         public MainPageViewModel(INavigation myNavigation)
         {
             Models = new ObservableCollection<TestModel>();
+            MyCarouselViewVM = new CarouselView();
+            NavigateTo = new Command((e) => ShowView((string)e));
 
 
-            Label label1 = new Label();
-            label1.Text = "Page 1";
-            Label label2 = new Label();
-            label2.Text = "Page 2";
-            Label label3 = new Label();
-            label3.Text = "Page 3";
+            List<Label> myLabels = new List<Label>();
 
-            StackLayout stackL1 = new StackLayout();
-            stackL1.Margin = new Thickness(25);
-            stackL1.BackgroundColor = Color.Red;
+            for(int i = 0; i < 5; i++)
+            {
+                Label label = new Label();
+                label.Text = "View " + i;
+
+                myLabels.Add(label);
+            }
 
 
-            StackLayout stackL2 = new StackLayout();
-            stackL2.Margin = new Thickness(25);
-            stackL2.BackgroundColor = Color.Blue;
+            StackLayout stackL = getNewStackLayout(Color.Red);
+            stackL.Children.Add(myLabels[0]);
+            Models.Add(new TestModel(stackL));
+            
 
+            stackL = getNewStackLayout(Color.Blue);
             Button bt1 = new Button();
             bt1.Text = "Navigation";
             INavigation myNav = myNavigation;
@@ -66,14 +74,36 @@ namespace TestProject
             {
                 myNav.PushAsync(new NavPage());
             };
-            stackL1.Children.Add(label1);
-            stackL1.Children.Add(bt1);
+            stackL.Children.Add(bt1);
+            stackL.Children.Add(myLabels[1]);
+            Models.Add(new TestModel(stackL));
 
-            stackL2.Children.Add(label2);
+            stackL = getNewStackLayout(Color.Green);
+            stackL.Children.Add(myLabels[2]);
+            Models.Add(new TestModel(stackL));
 
-            Models.Add(new TestModel(stackL1));
-            Models.Add(new TestModel(stackL2));
-            Models.Add(new TestModel(label3));
+            stackL = getNewStackLayout(Color.Yellow);
+            stackL.Children.Add(myLabels[3]);
+            Models.Add(new TestModel(stackL));
+
+            stackL = getNewStackLayout(Color.Purple);
+            stackL.Children.Add(myLabels[4]);
+            Models.Add(new TestModel(stackL));
+        }
+
+        public StackLayout getNewStackLayout(Color col)
+        {
+            StackLayout stackL = new StackLayout();
+            stackL.Margin = new Thickness(25);
+            stackL.BackgroundColor = col;
+            return stackL;
+        }
+
+        public void ShowView(string viewIndex)
+        {
+            //MyCarouselViewVM.CurrentItem = 3;
+            MyCarouselViewVM.ScrollTo(Convert.ToInt32(viewIndex), -1, ScrollToPosition.Center, false); 
+            //MyCarouselViewVM.ScrollTo(3); 
         }
 
 

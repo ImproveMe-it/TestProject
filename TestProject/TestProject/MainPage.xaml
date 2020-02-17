@@ -8,12 +8,17 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Button Text="GoToPage1" Clicked="Button_Clicked1"></Button>
-                <Button Text="GoToPage2" Clicked="Button_Clicked2"></Button>
-                <Button Text="GoToPage3" Clicked="Button_Clicked3"></Button>
-            </StackLayout>
-            <CarouselView Margin="50" ItemsSource="{Binding Models}" BackgroundColor="LightGreen" HeightRequest="300" x:Name="MyCarouselView" PositionChanged="MyCarouselView_PositionChanged">
+            <ScrollView BackgroundColor="Yellow" HeightRequest="150" Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="GoToView0" Command="{Binding NavigateTo}" CommandParameter="0" Margin="25"></Button>
+                    <Button Text="GoToView1" Command="{Binding NavigateTo}" CommandParameter="1" Margin="25"></Button>
+                    <Button Text="GoToView2" Command="{Binding NavigateTo}" CommandParameter="2" Margin="25"></Button>
+                    <Button Text="GoToView3" Command="{Binding NavigateTo}" CommandParameter="3" Margin="25"></Button>
+                    <Button Text="GoToView4" Command="{Binding NavigateTo}" CommandParameter="4" Margin="25"></Button>
+                </StackLayout>
+            </ScrollView>
+            <CarouselView Margin="50" ItemsSource="{Binding Models}" BackgroundColor="LightGreen" HeightRequest="300"
+                          x:Name="MyCarouselView" PositionChanged="MyCarouselView_PositionChanged">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <ScrollView>

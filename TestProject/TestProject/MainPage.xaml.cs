@@ -16,37 +16,19 @@ namespace TestProject
         public MainPageViewModel vm;
 
         ScrollToPosition scrP;
-        bool animateCV = false;
 
         public MainPage()
         {
             InitializeComponent();
             BindingContext = vm = new MainPageViewModel(Navigation);
-            scrP = ScrollToPosition.Center;
+            vm.MyCarouselViewVM = MyCarouselView;
         }
 
-        private void Button_Clicked1(object sender, EventArgs e)
-        {
-            MyCarouselView.ScrollTo(0, -1, scrP, true);
-        }
-
-        private void Button_Clicked2(object sender, EventArgs e)
-        {
-            //MyCarouselView.ScrollTo(1, position: (ScrollToPosition)2, animate: false);
-            scrP = ScrollToPosition.Start;
-            MyCarouselView.ScrollTo(1, -1, scrP, false);
-
-
-        }
-        private void Button_Clicked3(object sender, EventArgs e)
-        {
-            scrP = ScrollToPosition.End;
-            MyCarouselView.ScrollTo(2, -1, scrP, false);
-        }
 
         private void MyCarouselView_PositionChanged(object sender, PositionChangedEventArgs e)
         {
             //App.Current.MainPage.DisplayAlert("","Site changed","ok");
         }
+
     }
 }
